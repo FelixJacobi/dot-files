@@ -1,8 +1,12 @@
+# git author environment variables
+
 domain=(hostname -d)
 hostname=(hostname)
 
 export GIT_AUTHOR_NAME="Felix Jacobi"
 export GIT_COMMITTER_NAME="Felix Jacobi"
+export GIT_AUTHOR_EMAIL="Felix@jacobi-hamburg.net"
+export GIT_COMMITTER_EMAIL="Felix@jacobi-hamburg.net"
 
 # Check if we are committing on my workplace
 if [ "$domain" = "iserv.eu" || "$domain" = "mein-iserv.de" ]
@@ -14,9 +18,9 @@ elif [ "$hostname" = "iserv.felix.test-iserv.de" ]
 then
   export GIT_AUTHOR_EMAIL="felix.jacobi@stsbl.de"
   export GIT_COMMITTER_EMAIL="felix.jacobi@stsbl.de"
-# Use default for everything else
-else
-  export GIT_AUTHOR_EMAIL="Felix@jacobi-hamburg.net"
-  export GIT_COMMITTER_EMAIL="Felix@jacobi-hamburg.net"
 fi
 
+export GIT_AUTHOR_NAME
+export GIT_COMMITTER_NAME
+export GIT_AUTHOR_EMAIL
+export GIT_COMMITTER_EMAIL

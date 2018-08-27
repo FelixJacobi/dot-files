@@ -1,0 +1,21 @@
+# dpkg dev environment variables for bourne-compatible shells
+
+domain=(hostname -d)
+hostname=(hostname)
+
+# defaults
+DEBEMAIL="Felix@jacobi-hamburg.net"
+DEBFULLNAME="Felix Jacobi"
+
+# Check if we are committing on my workplace
+if [ "$domain" = "iserv.eu" || "$domain" = "mein-iserv.de" ]
+then
+  DEBEMAIL="felix.jacobi@iserv.eu"
+# Are we working on my stsbl-* debian packages?
+elif [ "$hostname" = "iserv.felix.test-iserv.de" ]
+then
+  DEBEMAIL="felix.jacobi@stsbl.de"
+fi
+
+export DEBEMAIL
+export DEBFULLNAME
