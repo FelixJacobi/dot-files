@@ -1,5 +1,6 @@
 [push]
 	default = simple
 [alias]
+	clean = clean -f -d
 	unstage = reset HEAD --
 	undo = checkout --
