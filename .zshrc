@@ -3771,27 +3771,3 @@ zrclocal
 # mode: sh
 # End:
 
-# Custom adjustments by Felix #
-alias nano='nano -w -i -c'
-
-if ! echo $PATH | grep -qE "~/bin"
-then
-  PATH+=":~/bin"
-  export PATH
-fi
-
-alias nano='nano -w -i -c'
-
-# import ~/.dpkg-dev (debuild env vars and so far)
-if [ -f "~/.dpkg_dev" ]
-then
-  source ~/.dpkg_dev
-fi
-
-# import ~/.git_author (dynamic git env vars and so far)
-if [ -f "~/.git_author" ]
-then
-  source ~/.git_author
-fi
-
-# End of custom adjustments by Felix #
