@@ -1,12 +1,10 @@
 alias nano='nano -w -i -c'
 
-if ! echo $PATH | grep -qE "~/bin"
+if ! echo $PATH | grep -qE "~/bin" && [ -d "~/bin" ]
 then
   PATH+=":~/bin"
   export PATH
 fi
-
-alias nano='nano -w -i -c'
 
 # import ~/.dpkg-dev (debuild env vars and so far)
 if [ -f "~/.dpkg_dev" ]
