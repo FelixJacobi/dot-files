@@ -3788,4 +3788,10 @@ then
   source ~/.dpkg_dev
 fi
 
+# import ~/.git_author (dynamic git env vars and so far)
+if [ -f "~/.git_author" ]
+then
+  source ~/.git_author
+fi
+
 # End of custom adjustments by Felix #

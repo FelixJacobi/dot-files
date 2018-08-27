@@ -1,0 +1,5 @@
+[push]
+	default = simple
+[alias]
+	unstage = reset HEAD --
+	undo = checkout --
