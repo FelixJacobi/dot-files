@@ -4,3 +4,4 @@
 	clear = clean -f -d
 	unstage = reset HEAD --
 	undo = checkout --
+	find = log --pretty=\"format:%Cgreen%H %Cblue%s\" --name-status --grep
