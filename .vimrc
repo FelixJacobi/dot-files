@@ -12,7 +12,6 @@ endif
 " virtual tabstops using spaces
 set shiftwidth=4
 set softtabstop=4
-set expandtab
 " allow toggling between local and default mode
 function TabToggle()
   if &expandtab
