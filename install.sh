@@ -23,7 +23,7 @@ do
   fi
 
   echo "$rd is a real file. Difference with $rf:"
-  diff -u "$DEST/$f" "$rf"
+  diff -u "$DEST/$f" "$rf" || true
   replace=n
 
   echo -n "Do you want to replace it? (y/N) "

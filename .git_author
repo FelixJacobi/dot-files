@@ -1,7 +1,9 @@
+#!/bin/bash
+
 # git author environment variables
 
-domain=(hostname -d)
-hostname=(hostname)
+domain="$(hostname -d)"
+hostname="$(hostname)"
 
 GIT_AUTHOR_NAME="Felix Jacobi"
 GIT_COMMITTER_NAME="Felix Jacobi"
@@ -9,15 +11,10 @@ GIT_AUTHOR_EMAIL="Felix@jacobi-hamburg.net"
 GIT_COMMITTER_EMAIL="Felix@jacobi-hamburg.net"
 
 # Check if we are committing on my workplace
-if [ "$domain" = "iserv.eu" ] || [ "$domain" = "mein-iserv.de" ]
+if [[ $domain =~ (^|\.)iserv\.eu$ ]] || [[ $domain =~ (^|\.)mein-iserv\.de$ ]]
 then
   GIT_AUTHOR_EMAIL="felix.jacobi@iserv.eu"
   GIT_COMMITTER_EMAIL="felix.jacobi@iserv.eu"
-# Are we working on my stsbl-* debian packages?
-elif [ "$hostname" = "iserv.felix.test-iserv.de" ]
-then
-  GIT_AUTHOR_EMAIL="felix.jacobi@stsbl.de"
-  GIT_COMMITTER_EMAIL="felix.jacobi@stsbl.de"
 fi
 
 export GIT_AUTHOR_NAME
