@@ -5,6 +5,7 @@
 	unstage = reset HEAD --
 	undo = checkout --
 	find = log --pretty=\"format:%Cgreen%H %Cblue%s\" --name-status --grep
+	stag = tag -s
 [commit]
 	gpgsign = true
 [user]
