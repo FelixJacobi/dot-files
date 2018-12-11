@@ -7,13 +7,14 @@ then
 fi
 
 # import ~/.dpkg-dev (debuild env vars and so far)
-if [ -f "~/.dpkg_dev" ]
+if [ -f "$HOME/.dpkg_dev" ]
 then
-  source ~/.dpkg_dev
+  source "$HOME/.dpkg_dev"
+
 fi
 
 # import ~/.git_author (dynamic git env vars and so far)
-if [ -f "~/.git_author" ]
+if [ -f "$HOME/.dpkg_dev" ]
 then
-  source ~/.git_author
+  source "$HOME/.git_author"
 fi

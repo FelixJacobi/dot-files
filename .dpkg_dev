@@ -8,7 +8,7 @@ DEBEMAIL="Felix@jacobi-hamburg.net"
 DEBFULLNAME="Felix Jacobi"
 
 # Check if we are committing on my workplace
-if [ "$domain" = "iserv.eu" || "$domain" = "mein-iserv.de" ]
+if [ "$domain" = "iserv.eu" ] || [ "$domain" = "mein-iserv.de" ]
 then
   DEBEMAIL="felix.jacobi@iserv.eu"
 # Are we working on my stsbl-* debian packages?

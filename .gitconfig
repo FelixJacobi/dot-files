@@ -5,3 +5,7 @@
 	unstage = reset HEAD --
 	undo = checkout --
 	find = log --pretty=\"format:%Cgreen%H %Cblue%s\" --name-status --grep
+[commit]
+	gpgsign = true
+[user]
+	signingkey = AD28C7633EEB9ACEDCA3D5082351A3C9FD44B05F
