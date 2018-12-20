@@ -3,7 +3,7 @@ set -e
 
 DEST="$HOME/"
 # config destination for programs that resolves home by UID (SSH -.-")
-DEST_UID="$(zsh -c "echo ~$(getent passwd "0" | cut -d: -f1)")"
+DEST_UID="$(zsh -c "echo ~$(getent passwd "$UID" | cut -d: -f1)")"
 
 # paths which will be only copied once (NOT symlinked!)
 is_oneshot()
@@ -17,7 +17,15 @@ get_drop_in()
   # IServ configuration
   if [ -x /usr/sbin/iservchk ] && [ -f "./iserv/$1" ]
   then
-    echo "$PWD/iserv/$1"
+    realpath -m "$PWD/iserv/$1"
+    return
+  fi
+
+  # Work PC/VM
+  if ([[ "$(hostname -f)" =~ (|\.)iserv.eu$ ]] || [[ "$(hostname -f)" =~ (|\.)mein-iserv.de$ ]]) &&
+      [ -f "./work/$1" ]
+  then
+    realpath -m $PWD/work/$1
     return
   fi
 
@@ -58,7 +66,10 @@ install_file()
   fi
 }
 
-for f in $(find -type f -not \( -path './uid/*' -or -path './.git/*' -or -path './install.sh' -or -path './README.md' -or -path './LICENSE' -or -path './iserv/*' \))
+for f in $(find -type f -not \( -path './uid/*' -or -path './.git/*' -or \
+               -path './install.sh' -or -path './README.md' -or \
+               -path './LICENSE' -or -path './iserv/*' -or -path './work/*' \)
+)
 do
   rf="$(realpath -sm "$f")"
   rd="$(realpath -sm "$DEST/$f")"
