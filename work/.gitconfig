@@ -6,8 +6,11 @@
 	undo = checkout --
 	find = log --pretty=\"format:%Cgreen%H %Cblue%s\" --name-status --grep
 	stag = tag -s
+	apush = "!f() { for r in $(git remote); do git push --all \"$r\" && git push --tags \"$r\"; done; }; f"
+	cpush = "!f() { git push --all \"$1\" && git push --tags \"$1\"; }; f \"$1\""
+	mpush = "!f() { for d in \"$@\"; do git push --all \"$d\" && git push --tags \"$d\"; done; }; f \"$@\"
 [fetch]
-    prune = true
+	prune = true
 [commit]
 	gpgsign = true
 [user]

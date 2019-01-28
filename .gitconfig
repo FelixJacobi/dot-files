@@ -10,7 +10,7 @@
 	cpush = "!f() { git push --all \"$1\" && git push --tags \"$1\"; }; f \"$1\""
 	mpush = "!f() { for d in \"$@\"; do git push --all \"$d\" && git push --tags \"$d\"; done; }; f \"$@\""
 [fetch]
-    prune = true
+	prune = true
 [commit]
 	gpgsign = true
 [user]
