@@ -1,0 +1,24 @@
+#!/usr/bin/perl -T CSDAL
+
+use File::Touch;
+
+my $home = ($ENV{HOME} =~ /^(.+)$/)[0];
+
+undef %ENV;
+
+my $fn_hold = "$home/.gnupg/.hold_lock";
+
+$SIG{INT} = $SIG{TERM} = sub
+{
+  print "Releasing lock.\n";
+  unlink $fn_hold;
+  exit;
+};
+
+print "Holding lock...\n";
+touch $fn_hold;
+
+while (true)
+{
+  # no op
+}
