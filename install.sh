@@ -44,6 +44,7 @@ install_file()
     return
   fi
 
+  mkdir -pv "$(dirname "$rd")"
   if ! [ -e "$rd" ]
   then
     echo "Creating new symlink $rd to $rf."
