@@ -2,7 +2,7 @@ alias nano='nano -w -i -c'
 
 if ! echo $PATH | grep -qE "~/bin" && [ -d ~"/bin" ]
 then
-  PATH+=":~/bin"
+  PATH+=":$HOME/bin"
   export PATH
 fi
 
