@@ -29,7 +29,7 @@ export ISERV_SRC_DIR=/root/git/iserv
 export GIT_TAG_CMD="stag"
 
 # Update dotfiles if running interactively and last update was more than 24 hours ago
-if [ -t 0 ] && ([ ! -f ~/.dot_files_update ] || [ ! -z "$(find ~ -name ".dot_files_update" -mmin +1440)" ])
+if [ -t 0 ] && ([ ! -f ~/.dot_files_update ] || [ ! -z "$(find ~ -maxdepth 1 -name ".dot_files_update" -mmin +1440)" ])
 then
   echo "Pulling dot-files from GitHub..." &&
   git -C ~/git/dot-files pull -q &&
