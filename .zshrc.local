@@ -24,3 +24,5 @@ if [[ -x /usr/lib/command-not-found ]] ; then
     /usr/lib/command-not-found --no-failure-msg -- $1
   }
 fi
+
+export ISERV_SRC_DIR=/root/git/iserv
