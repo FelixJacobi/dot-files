@@ -26,3 +26,4 @@ if [[ -x /usr/lib/command-not-found ]] ; then
 fi
 
 export ISERV_SRC_DIR=/root/git/iserv
+export GIT_TAG_CMD="stag"
