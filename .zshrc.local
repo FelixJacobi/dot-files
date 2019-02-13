@@ -37,5 +37,8 @@ then
   echo "Installing dot-files..." &&
   (cd ~/git/dot-files && ./install.sh | grep --color=never -E "^Creating|^Replacing") &&
   echo "Done!" &&
-  touch ~/.dot_files_update
+  touch ~/.dot_files_update &&
+  # Reexec if shell configuration changed
+  echo "\nRestarting login shell...\n" &&
+  exec -l "$SHELL"
 fi
