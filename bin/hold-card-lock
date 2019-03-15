@@ -22,5 +22,8 @@ touch $fn_hold;
 
 while (1)
 {
-  # no op
+  print "Checking card status ...";
+  # check card status
+  qx(gpg --card-status &> /dev/null);
+  sleep 1;
 }
