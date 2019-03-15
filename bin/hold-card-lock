@@ -1,6 +1,8 @@
 #!/usr/bin/perl -T CSDAL
 
 use File::Touch;
+use warnings;
+use strict;
 
 my $home = ($ENV{HOME} =~ /^(.+)$/)[0];
 
@@ -18,7 +20,7 @@ $SIG{INT} = $SIG{TERM} = sub
 print "Holding lock...\n";
 touch $fn_hold;
 
-while (true)
+while (1)
 {
   # no op
 }
