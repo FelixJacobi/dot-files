@@ -1,4 +1,6 @@
 alias nano='nano -w -i -c'
+alias vim='vim -p'
+alias V='vim -R -'
 
 if ! echo $PATH | grep -qE "~/bin" && [ -d ~"/bin" ]
 then
