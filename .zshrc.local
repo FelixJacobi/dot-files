@@ -3,8 +3,14 @@ alias nano='nano -w -i -c'
 if ! echo $PATH | grep -qE "~/bin" && [ -d ~"/bin" ]
 then
   PATH+=":$HOME/bin"
-  export PATH
 fi
+
+if ! echo $PATH | grep -qE "/opt/jetbrains/bin" && [ -d "/opt/jetbrains/bin" ]
+then
+  PATH+=":/opt/jetbrains/bin"
+fi
+
+export PATH
 
 # import ~/.dpkg-dev (debuild env vars and so far)
 if [ -f "$HOME/.dpkg_dev" ]
@@ -21,7 +27,7 @@ fi
 
 if [[ -x /usr/lib/command-not-found ]] ; then
   function command_not_found_handler() {
-    /usr/lib/command-not-found --no-failure-msg -- $1
+    /usr/lib/command-not-found -- "$1"
   }
 fi
 
