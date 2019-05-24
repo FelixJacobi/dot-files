@@ -1,17 +1,4 @@
-[push]
-	default = simple
-[alias]
-	clear = clean -f -d
-	unstage = reset HEAD --
-	undo = checkout --
-	find = log --pretty=\"format:%Cgreen%H %Cblue%s\" --name-status --grep
-	stag = tag -s
-	apush = "!f() { for r in $(git remote); do git push --all \"$r\" && git push --tags \"$r\"; done; }; f"
-	cpush = "!f() { git push --all \"$1\" && git push --tags \"$1\"; }; f \"$1\""
-	mpush = "!f() { for d in \"$@\"; do git push --all \"$d\" && git push --tags \"$d\"; done; }; f \"$@\""
-[fetch]
-	prune = true
-[commit]
-	gpgsign = true
+[include]
+	path = ~/.gitconfig_common
 [user]
 	signingkey = AD28C7633EEB9ACEDCA3D5082351A3C9FD44B05F

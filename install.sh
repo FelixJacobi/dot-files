@@ -22,7 +22,7 @@ get_drop_in()
   fi
 
   # Work PC/VM
-  if ([[ "$(hostname -f)" =~ (|\.)iserv.eu$ ]] || [[ "$(hostname -f)" =~ (|\.)mein-iserv.de$ ]]) &&
+  if ([[ "$(hostname -f)" =~ (|\.)iserv.eu$ ]] || [[ "$(hostname -f)" =~ \.?(mein-iserv\.de|i\.local)$ ]]) &&
       [ -f "./work/$1" ]
   then
     realpath -m $PWD/work/$1
@@ -44,6 +44,7 @@ install_file()
     return
   fi
 
+  mkdir -pv "$(dirname "$rd")"
   if ! [ -e "$rd" ]
   then
     echo "Creating new symlink $rd to $rf."
