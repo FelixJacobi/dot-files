@@ -44,11 +44,17 @@ export GIT_TAG_CMD="stag"
 # Update dotfiles if running interactively and last update was more than 24 hours ago
 if [ -t 0 ] && ([ ! -f ~/.dot_files_update ] || [ ! -z "$(find ~ -maxdepth 1 -name ".dot_files_update" -mmin +1440)" ])
 then
+  DOTFILES_DIR=~/git/dot-files
+  if [ -f ~/.dotfiles_dir ]
+  then
+    DOTFILES_DIR=$(< ~/.dotfiles_dir)
+  fi
+
   echo "Pulling dot-files from GitHub..." &&
-  git -C ~/git/dot-files pull -q &&
+  git -C "$DOTFILES_DIR" pull -q &&
   echo "Done!" &&
   echo "Installing dot-files..." &&
-  (cd ~/git/dot-files && ./install.sh | grep --color=never -E "^Creating|^Replacing") &&
+  (cd "$DOTFILES_DIR" && ./install.sh | grep --color=never -E "^Creating|^Replacing") &&
   echo "Done!" &&
   touch ~/.dot_files_update &&
   # Reexec if shell configuration changed
