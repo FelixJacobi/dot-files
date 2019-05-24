@@ -18,3 +18,5 @@ if [ -f "$HOME/.dpkg_dev" ]
 then
   source "$HOME/.git_author"
 fi
+
+export GIT_TAG_CMD="stag"
