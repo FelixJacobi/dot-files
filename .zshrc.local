@@ -34,6 +34,10 @@ if [[ -x /usr/lib/command-not-found ]] ; then
   }
 fi
 
+# No bell
+# https://blog.vghaisas.com/zsh-beep-sound/
+unsetopt BEEP
+
 export ISERV_SRC_DIR=/root/git/iserv
 export GIT_TAG_CMD="stag"
 
