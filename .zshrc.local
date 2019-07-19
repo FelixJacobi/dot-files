@@ -47,6 +47,18 @@ then
   export LC_MESSAGES=C
 fi
 
+if [ -z "$SSH_AUTH_SOCK" ]
+then
+  SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+  if [ -n "$SSH_AUTH_SOCK" ]
+  then
+    export SSH_AUTH_SOCK
+  else
+    echo "Could not determine path for SSH_AUTH_SOCK!" >&2
+    unset SSH_AUTH_SOCK
+  fi
+fi
+
 # Update dotfiles if running interactively and last update was more than 24 hours ago
 if [ -t 0 ] && ([ ! -f ~/.dot_files_update ] || [ ! -z "$(find ~ -maxdepth 1 -name ".dot_files_update" -mmin +1440)" ])
 then
