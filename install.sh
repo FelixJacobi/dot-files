@@ -25,7 +25,7 @@ get_drop_in()
   if ([[ "$(hostname -f)" =~ (|\.)iserv.eu$ ]] || [[ "$(hostname -f)" =~ \.?(mein-iserv\.de|i\.local)$ ]]) &&
       [ -f "./work/$1" ]
   then
-    realpath -m $PWD/work/$1
+    realpath -m "$PWD/work/$1"
     return
   fi
 
@@ -37,7 +37,10 @@ install_file()
   rf="$1"
   rd="$2"
 
-  if [ -L "$rd" ]
+  if [ "$(readlink -f "$rd")" = "$rf" ]
+  then
+    return
+  elif [ -L "$rd" ]
   then
     echo "Replacing existing symlink $rd with one to $rf."
     ln -sf "$rf" "$rd"
@@ -74,7 +77,6 @@ for f in $(find -type f -not \( -path './uid/*' -or -path './.git/*' -or \
 do
   rf="$(realpath -sm "$f")"
   rd="$(realpath -sm "$DEST/$f")"
-  echo $f
 
   install_file "$(get_drop_in "$f" "$rf")" "$rd"
 done
@@ -83,7 +85,6 @@ for f in $(find -type f -path './uid/*')
 do
   rf="$(realpath -sm "$f")"
   rd="$(realpath -sm "$DEST_UID/$(echo $f | sed -E 's#^\./uid##g')")"
-  echo $f
 
   if is_oneshot "$f"
   then
