@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+
+HOME=~/.home-riot-community.iserv.eu exec riot-web
