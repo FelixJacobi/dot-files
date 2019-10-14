@@ -2269,6 +2269,7 @@ grml_theme_add_token: Token `%s'\'' exists! Giving up!\n\n' $name
         return 2
     fi
     if (( init )); then
+        REPLY=''
         $token $name
         token=$REPLY
     fi
@@ -2314,6 +2315,7 @@ function grml_prompt_addto () {
         zstyle -s ":prompt:${grmltheme}:${lr}:items:$it" token new \
             || new=${grml_prompt_token_default[$it]}
         if (( ${+grml_prompt_token_function[$it]} )); then
+            REPLY=''
             ${grml_prompt_token_function[$it]} $it
         else
             case $it in
@@ -2525,7 +2527,7 @@ function grml_cmd_to_screen_title () {
 function grml_control_xterm_title () {
     case $TERM in
         (xterm*|rxvt*)
-            set_title "${(%):-"%n@%m:"}" "$1"
+            set_title "${(%):-"%n@%m:"}" "$2"
             ;;
     esac
 }
@@ -3733,7 +3735,10 @@ if check_com -c hg ; then
 
 fi # end of check whether we have the 'hg'-executable
 
-# grml-small cleanups
+# disable bracketed paste mode for dumb terminals
+[[ "$TERM" == dumb ]] && unset zle_bracketed_paste
+
+# grml-small cleanups and workarounds
 
 # The following is used to remove zsh-config-items that do not work
 # in grml-small by default.
@@ -3742,6 +3747,8 @@ fi # end of check whether we have the 'hg'-executable
 # sources if it is there).
 
 if (( GRMLSMALL_SPECIFIC > 0 )) && isgrmlsmall ; then
+
+    # Clean up
 
     unset "abk[V]"
     unalias    'V'      &> /dev/null
@@ -3753,6 +3760,36 @@ if (( GRMLSMALL_SPECIFIC > 0 )) && isgrmlsmall ; then
     unfunction manzsh   &> /dev/null
     unfunction man2     &> /dev/null
 
+    # Workarounds
+
+    # See https://github.com/grml/grml/issues/56
+    if ! [[ -x ${commands[dig]} ]]; then
+        function dig_after_all () {
+            unfunction dig
+            unfunction _dig
+            autoload -Uz _dig
+            unfunction dig_after_all
+        }
+        function dig () {
+            if [[ -x ${commands[dig]} ]]; then
+                dig_after_all
+                command dig "$@"
+                return "$!"
+            fi
+            printf 'This installation does not include `dig'\'' for size reasons.\n'
+            printf 'Try `drill'\'' as a light weight alternative.\n'
+            return 0
+        }
+        function _dig () {
+            if [[ -x ${commands[dig]} ]]; then
+                dig_after_all
+                zle -M 'Found `dig'\'' installed. '
+            else
+                zle -M 'Try `drill'\'' instead of `dig'\''.'
+            fi
+        }
+        compdef _dig dig
+    fi
 fi
 
 zrclocal
@@ -3770,4 +3807,3 @@ zrclocal
 # Local variables:
 # mode: sh
 # End:
-
