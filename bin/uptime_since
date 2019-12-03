@@ -3,4 +3,4 @@ set -e
 
 (( UPTIME = $(date +%s) - $(awk '{print $1}' /proc/uptime | sed -e 's/\[//g' -e 's/\..*//g')))
 
-echo "$UPTIME"
+date --date=@"$UPTIME"
