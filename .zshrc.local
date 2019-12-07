@@ -40,7 +40,8 @@ fi
 # https://blog.vghaisas.com/zsh-beep-sound/
 unsetopt BEEP
 
-export ISERV_SRC_DIR=/root/git/iserv
+. ~/.git_iserv_src_dir
+
 export GIT_TAG_CMD="stag"
 
 # Use original gettext messages in shell sessions
