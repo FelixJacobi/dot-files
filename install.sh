@@ -14,6 +14,13 @@ is_oneshot()
 # get a specific replacement for the given file
 get_drop_in()
 {
+  # IServ configuration for root
+  if [ "$EUID" = "0" ] && [ "$USER" = "root" ] && [ -x /usr/sbin/iservchk ] && [ -f "./iserv-root/$1" ]
+  then
+    realpath -m "$PWD/iserv-root/$1"
+    return
+  fi
+
   # IServ configuration
   if [ -x /usr/sbin/iservchk ] && [ -f "./iserv/$1" ]
   then
@@ -72,7 +79,8 @@ install_file()
 
 for f in $(find -type f -not \( -path './uid/*' -or -path './.git/*' -or \
                -path './install.sh' -or -path './README.md' -or \
-               -path './LICENSE' -or -path './iserv/*' -or -path './work/*' \)
+               -path './LICENSE' -or -path './iserv/*' -or \
+               -path './iserv-root/*' -or -path './work/*' \)
 )
 do
   rf="$(realpath -sm "$f")"
