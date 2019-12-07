@@ -79,7 +79,8 @@ install_file()
 
 for f in $(find -type f -not \( -path './uid/*' -or -path './.git/*' -or \
                -path './install.sh' -or -path './README.md' -or \
-               -path './LICENSE' -or -path './iserv/*' -or -path './work/*' \)
+               -path './LICENSE' -or -path './iserv/*' -or \
+               -path './iserv-root/*' -or -path './work/*' \)
 )
 do
   rf="$(realpath -sm "$f")"
