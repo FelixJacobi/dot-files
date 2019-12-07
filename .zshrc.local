@@ -2,6 +2,8 @@ alias nano='nano -w -i -c'
 alias vim='vim -p'
 alias V='vim -R -'
 alias man='man --locale=C'
+# https://github.com/danielauener/git-auf-deutsch
+alias depp=git
 
 if ! echo $PATH | grep -qE "~/bin" && [ -d ~"/bin" ]
 then
