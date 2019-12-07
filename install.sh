@@ -14,6 +14,13 @@ is_oneshot()
 # get a specific replacement for the given file
 get_drop_in()
 {
+  # IServ configuration for root
+  if [ "$EUID" = "0" ] && [ "$USER" = "root" ] && [ -x /usr/sbin/iservchk ] && [ -f "./iserv-root/$1" ]
+  then
+    realpath -m "$PWD/iserv-root/$1"
+    return
+  fi
+
   # IServ configuration
   if [ -x /usr/sbin/iservchk ] && [ -f "./iserv/$1" ]
   then
