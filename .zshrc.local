@@ -44,6 +44,13 @@ unsetopt BEEP
 
 export GIT_TAG_CMD="stag"
 
+# only show matching entries in history search if a letter is already entered
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^[[A" history-beginning-search-backward-end
+bindkey "^[[B" history-beginning-search-forward-end
+
 # Use original gettext messages in shell sessions
 if [ -t 0 ]
 then
