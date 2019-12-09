@@ -19,6 +19,7 @@
 	fueghinzu = add
 	drueck = push
 	pfusch = push
+	erzwinge-pfusch = push --force
 	zweig = branch
 	verzweige = branch
 	uebergib = commit
