@@ -2,23 +2,3 @@
 	path = ~/.gitconfig_common
 [user]
 	signingkey = AD28C7633EEB9ACEDCA3D5082351A3C9FD44B05F
-[alias]
-	# https://github.com/danielauener/git-auf-deutsch
-	eroeffne = init
-	machnach = clone
-	zieh = pull
-	fueghinzu = add
-	drueck = push
-	pfusch = push
-	zweig = branch
-	verzweige = branch
-	uebergib = commit
-	erde = rebase
-	unterscheide = diff
-	vereinige = merge
-	bunkere = stash
-	markiere = tag
-	nimm = checkout
-	tagebuch = log
-	zustand = status
-	beschuldige = blame
