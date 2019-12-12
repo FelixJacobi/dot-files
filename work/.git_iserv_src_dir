@@ -1,0 +1,6 @@
+if [ -d "/root/git/iserv" ]
+then
+  export ISERV_SRC_DIR=/root/git/iserv
+else
+  export ISERV_SRC_DIR=/root/git
+fi
