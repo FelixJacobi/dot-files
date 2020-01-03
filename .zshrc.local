@@ -5,6 +5,7 @@ alias man='man --locale=C'
 # https://github.com/danielauener/git-auf-deutsch
 alias depp=git
 # remove ag alias from grml
+alias ag=true
 unalias ag
 
 if ! echo $PATH | grep -qE "~/bin" && [ -d ~"/bin" ]
