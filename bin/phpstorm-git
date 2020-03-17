@@ -1,0 +1,35 @@
+#!/bin/zsh
+
+. ~/.git_author
+
+ISERV3=~felix.jacobi"/iserv3"
+
+DIR="$PWD"
+DIR="${DIR/$ISERV3/}"
+DIR="${DIR/\/home\/VERTRIEB\//\/home\/}"
+
+containsElement () {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 0; done
+  return 1
+}
+
+# perform commit locally on machine due to restrictions of phpstorm
+if containsElement "commit" "$@"
+then
+  GIT_ARGS=()
+  #for arg in $@
+  #do
+  #  if [ "$arg" = "commit" ]
+  #  then
+  #    GIT_ARGS+=("commit" "--author" "$GIT_AUTHOR_NAME <$GIT_AUTHOR_EMAIL>" )
+  #  else
+  #    GIT_ARGS+=("$arg")
+  #  fi
+  #done
+  exec git "$@"
+fi
+
+ssh -q felix -- ssh -q git &> /dev/null
+ssh -q -l root felix.mein-iserv.de -- cd "$DIR" \&\& git "$@"
