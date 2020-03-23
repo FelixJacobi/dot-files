@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+
+echo "How many shared pages are being used: $(( $(cat /sys/kernel/mm/ksm/pages_shared) * $(getconf PAGESIZE) / 1024 / 1024 ))MiB" 
+echo "How many more sites are sharing them i.e. how much saved: $(( $(cat /sys/kernel/mm/ksm/pages_sharing) * $(getconf PAGESIZE) / 1024 / 1024 ))MiB"
