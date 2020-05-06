@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+git config author.email 'felix.jacobi@iserv.eu'
+git config author.name 'Felix Jacobi'
+git config user.name 'Felix Jacobi'
+git config user.email felix.jacobi@iserv.eu
+git config user.signingkey 727A52F39644333887EACAFCDC56298737E1DA91
