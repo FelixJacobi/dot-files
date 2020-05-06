@@ -2,11 +2,15 @@
 
 . ~/.git_author
 
-ISERV3=~felix.jacobi"/iserv3"
+autoload -U regexp-replace
+
+ISERV3="/home/felix.jacobi/iserv3"
 
 DIR="$PWD"
-DIR="${DIR/$ISERV3/}"
-DIR="${DIR/\/home\/VERTRIEB\//\/home\/}"
+regexp-replace DIR "^$DIR" "$ISERV3"
+regexp-replace DIR '^/home/VERTRIEB/' /home/
+regexp-replace DIR '^/home/felix/' /home/felix.jacobi/
+regexp-replace DIR '^/home/felix$' /home/felix.jacobi
 
 containsElement () {
   local e match="$1"
@@ -31,5 +35,5 @@ then
   exec git "$@"
 fi
 
-ssh -q felix -- ssh -q git &> /dev/null
+ssh -q -felix -- ssh -q git &> /dev/null
 ssh -q -l root felix.mein-iserv.de -- cd "$DIR" \&\& git "$@"
