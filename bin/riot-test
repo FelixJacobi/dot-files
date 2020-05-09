@@ -3,4 +3,4 @@ set -e
 
 export HOME=~/.home-riot-test
 
-exec riot-web
+exec riot-desktop
