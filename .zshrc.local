@@ -60,13 +60,16 @@ then
   export LC_MESSAGES=C
 fi
 
-SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-if [ -n "$SSH_AUTH_SOCK" ]
+if [ -z "$SSH_AUTH_SOCK" ]
 then
-  export SSH_AUTH_SOCK
-else
-  echo "Could not determine path for SSH_AUTH_SOCK!" >&2
-  unset SSH_AUTH_SOCK
+  SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+  if [ -n "$SSH_AUTH_SOCK" ]
+  then
+    export SSH_AUTH_SOCK
+  else
+    echo "Could not determine path for SSH_AUTH_SOCK!" >&2
+    unset SSH_AUTH_SOCK
+  fi
 fi
 
 # Update dotfiles if running interactively and last update was more than 24 hours ago
