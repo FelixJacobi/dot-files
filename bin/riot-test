@@ -1,6 +1,4 @@
 #!/bin/sh
 set -e
 
-export HOME=~/.home-riot-test
-
-exec riot-desktop
+HOME=~/.home-riot-test exec element-desktop
