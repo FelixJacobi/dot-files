@@ -7,7 +7,7 @@ autoload -U regexp-replace
 ISERV3="/home/felix.jacobi/iserv3"
 
 DIR="$PWD"
-regexp-replace DIR "^$DIR" "$ISERV3"
+regexp-replace DIR "^"~ "$ISERV3"
 regexp-replace DIR '^/home/VERTRIEB/' /home/
 regexp-replace DIR '^/home/felix/' /home/felix.jacobi/
 regexp-replace DIR '^/home/felix$' /home/felix.jacobi
