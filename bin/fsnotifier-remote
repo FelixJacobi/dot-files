@@ -1,3 +1,6 @@
 #!/bin/sh
 
-cat - | sed 's#/home/VERTRIEB#/home/#g' | ssh -q -l root felix.mein-iserv.de /home/felix.jacobi/iserv3/fsnotifier-remote/linux/fsnotifier64
+while true;
+do
+  cat - | sed 's#/home/VERTRIEB#/home/#g' | ssh -q -l root felix.mein-iserv.de /home/felix.jacobi/iserv3/fsnotifier-remote/linux/fsnotifier64
+done
