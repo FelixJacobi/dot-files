@@ -1,0 +1,4 @@
+allow-failsafe
+allow-user-resources
+allow-user-xsession
+use-session-dbus
