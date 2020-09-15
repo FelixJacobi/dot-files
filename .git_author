@@ -12,7 +12,7 @@ then
   GIT_COMMITTER_EMAIL="Felix@jacobi-hamburg.net"
 
   # Check if we are committing on my workplace
-  if [[ $domain =~ (^|\.)iserv\.eu$ ]] || [[ $domain =~ \.?(mein-iserv\.de|i\.local)$ ]]
+  if echo "$domain" | grep -qE '(^|\.)iserv\.eu$' || echo "$domain" | grep -qE '(^|\.)mein-iserv\.de$'
   then
     GIT_AUTHOR_EMAIL="felix.jacobi@iserv.eu"
     GIT_COMMITTER_EMAIL="felix.jacobi@iserv.eu"
