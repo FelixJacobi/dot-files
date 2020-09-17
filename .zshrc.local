@@ -27,7 +27,8 @@ then
   git -C "$DOTFILES_DIR" pull -q &&
   echo "Done!" &&
   echo "Installing dot-files..." &&
-  (cd "$DOTFILES_DIR" && ./install.sh | grep --color=never -E "^Creating|^Replacing") &&
+  cd "$DOTFILES_DIR" &&
+  ./install.sh &&
   echo "Done!" &&
   touch ~/.dot_files_update &&
   # Reexec if shell configuration changed
