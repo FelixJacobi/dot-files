@@ -30,6 +30,7 @@ then
   cd "$DOTFILES_DIR" &&
   ./install.sh &&
   echo "Done!" &&
+  cd - > /dev/null &&
   touch ~/.dot_files_update &&
   # Reexec if shell configuration changed
   echo "\nRestarting login shell...\n" &&
