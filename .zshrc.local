@@ -1,3 +1,13 @@
+alias nano='nano -w -i -c'
+alias vim='vim -p'
+alias V='vim -R -'
+alias man='man --locale=C'
+# https://github.com/danielauener/git-auf-deutsch
+alias depp=git
+# remove ag alias from grml
+alias ag=true
+unalias ag
+
 if [[ -x /usr/lib/command-not-found ]] ; then
   function command_not_found_handler() {
     /usr/lib/command-not-found -- "$1"

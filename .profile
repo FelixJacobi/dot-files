@@ -8,16 +8,6 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-alias nano='nano -w -i -c'
-alias vim='vim -p'
-alias V='vim -R -'
-alias man='man --locale=C'
-# https://github.com/danielauener/git-auf-deutsch
-alias depp=git
-# remove ag alias from grml
-alias ag=true
-unalias ag
-
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
