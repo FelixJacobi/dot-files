@@ -16,7 +16,7 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-if ! echo $PATH | grep -qE "~/bin" && [ -d ~"/bin" ]
+if ! echo $PATH | grep -qE "$HOME/bin" && [ -d "$HOME/bin" ]
 then
   PATH="$PATH:$HOME/bin"
 fi
