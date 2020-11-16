@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Element (stsbl.de)
-Exec=/home/felix/bin/riot-web-stsbl.de %U
+Exec=riot-web-stsbl.de %U
 Terminal=false
 Type=Application
 Icon=element-desktop

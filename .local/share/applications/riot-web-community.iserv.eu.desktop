@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Element (community.iserv.eu)
-Exec=/home/felix/bin/riot-web-community.iserv.eu %U
+Exec=riot-web-community.iserv.eu %U
 Terminal=false
 Type=Application
 Icon=element-desktop
