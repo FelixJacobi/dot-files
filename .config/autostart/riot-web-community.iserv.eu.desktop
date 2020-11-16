@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Element (community.iserv.eu)
+Exec=/home/felix/bin/riot-web-community.iserv.eu %U
+Terminal=false
+Type=Application
+Icon=element-desktop
+StartupWMClass=element
+Comment=A feature-rich client for Matrix.org
+MimeType=x-scheme-handler/element;
+Categories=Network;InstantMessaging;Chat;

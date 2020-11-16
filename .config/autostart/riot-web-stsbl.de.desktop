@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Element (stsbl.de)
+Exec=/home/felix/bin/riot-web-stsbl.de %U
+Terminal=false
+Type=Application
+Icon=element-desktop
+StartupWMClass=element
+Comment=A feature-rich client for Matrix.org
+MimeType=x-scheme-handler/element;
+Categories=Network;InstantMessaging;Chat;

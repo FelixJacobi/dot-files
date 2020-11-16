@@ -44,36 +44,70 @@ install_file()
   rf="$1"
   rd="$2"
 
-  if [ "$(readlink -f "$rd")" = "$rf" ]
+  if ! { [[ $rd =~ .config/autostart ]] || [[ $rd =~ .local/share/applications ]]; }
   then
-    return
-  elif [ -L "$rd" ]
-  then
-    echo "Replacing existing symlink $rd with one to $rf."
-    ln -sf "$rf" "$rd"
-    return
+    if [ "$(readlink -f "$rd")" = "$rf" ]
+    then
+      return
+    elif [ -L "$rd" ]
+    then
+      echo "Replacing existing symlink $rd with one to $rf."
+      ln -sf "$rf" "$rd"
+      return
+    fi
   fi
 
   mkdir -pv "$(dirname "$rd")"
+
   if ! [ -e "$rd" ]
   then
-    echo "Creating new symlink $rd to $rf."
-    ln -sf "$rf" "$rd"
+    if [[ $rd =~ .config/autostart ]] || [[ $rd =~ .local/share/applications ]]
+    then
+      echo "Copying $rf to $rd."
+      cp -a "$rf" "$rd"
+    else
+      echo "Creating new symlink $rd to $rf."
+      ln -sf "$rf" "$rd"
+    fi
     return
   fi
 
-  echo "$rd is a real file. Difference with $rf:"
-  diff -u "$DEST/$f" "$rf" || true
-  replace=n
-
-  echo -n "Do you want to replace it? (y/N) "
-  read replace
-
-  if [ "$replace" = "y" ] || [ "$replace" = "Y" ]
+  if [[ $rd =~ .config/autostart ]] || [[ $rd =~ .local/share/applications ]]
   then
-    echo "Replacing file $rd with symlink to $rf."
-    ln -sf "$rf" "$rd"
-    return
+    if diff -u "$DEST/$f" "$rf"
+    then
+      # same file
+      true
+    else
+      echo "$rd is a real file. Difference with $rf:"
+      diff -u "$DEST/$f" "$rd" || true
+      replace=n
+
+      echo -n "Do you want to replace it? (y/N) "
+      read replace
+
+      if [ "$replace" = "y" ] || [ "$replace" = "Y" ]
+      then
+	echo "Replacing file $rd with copy of $rf."
+        rm -f "$DEST/$f"
+        cp -a "$rf" "$DEST/$f"
+	return
+      fi
+    fi
+  else
+    echo "$rd is a real file. Difference with $rf:"
+    diff -u "$DEST/$f" "$rf" || true
+    replace=n
+
+    echo -n "Do you want to replace it? (y/N) "
+    read replace
+
+    if [ "$replace" = "y" ] || [ "$replace" = "Y" ]
+    then
+      echo "Replacing file $rd with symlink to $rf."
+      ln -sf "$rf" "$rd"
+      return
+    fi
   fi
 }
 
