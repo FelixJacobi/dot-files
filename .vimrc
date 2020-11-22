@@ -13,3 +13,5 @@ function TabToggle()
   endif
 endfunction
 nmap <F9> mz:execute TabToggle()<CR>'z
+
+set encoding=utf-8
