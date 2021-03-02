@@ -2,3 +2,5 @@
 
 gpgconf --kill scdaemon
 gpgconf --kill gpg-agent
+sleep 1
+gpg --card-status all
