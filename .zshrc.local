@@ -1,3 +1,21 @@
+# We're on macOS with Homebrew
+if [ -x =brew ]
+then
+  BREWGNU="$(brew --prefix)/opt/coreutils/libexec/gnubin"
+  # Prefer GNU coreutils over macOS dumb BSD variants
+  if ! echo "$PATH" | grep -q "$BREWGNU"
+  then
+    export PATH="$BREWGNU:$PATH"
+  fi
+  
+  # Replace builtin macOS SSH agent
+  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+
+  # Fix TTY
+  export GPG_TTY=$(tty)
+  gpg-connect-agent updatestartuptty /bye >/dev/null
+fi
+
 alias nano='nano -w -i -c'
 alias vim='vim -p'
 alias V='vim -R -'
@@ -8,7 +26,15 @@ alias depp=git
 alias ag=true
 unalias ag
 
-if [[ -x /usr/lib/command-not-found ]] ; then
+if [ -x =brew ]
+then 
+  HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
+  if [ -f "$HB_CNF_HANDLER" ]
+  then
+    source "$HB_CNF_HANDLER"
+  fi
+elif [[ -x /usr/lib/command-not-found ]] ; 
+then
   function command_not_found_handler() {
     /usr/lib/command-not-found -- "$1"
   }

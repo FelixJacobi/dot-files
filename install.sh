@@ -3,7 +3,14 @@ set -e
 
 DEST="$HOME/"
 # config destination for programs that resolves home by UID (SSH -.-")
-DEST_UID="$(zsh -c "echo ~$(getent passwd "$UID" | cut -d: -f1)")"
+# Linux
+if [ "$(which getent)" ]
+then
+  DEST_UID="$(zsh -c "echo ~$(getent passwd "$UID" | cut -d: -f1)")"
+# system without getent (macOS)
+else
+  DEST_UID="$HOME"
+fi
 
 # paths which will be only copied once (NOT symlinked!)
 is_oneshot()
@@ -29,11 +36,14 @@ get_drop_in()
   fi
 
   # Work PC/VM
-  if ([[ "$(hostname -f)" =~ (|\.)iserv.eu$ ]] || [[ "$(hostname -f)" =~ \.?(mein-iserv\.de|i\.local)$ ]]) &&
-      [ -f "./work/$1" ]
+  if ! uname -a | grep -q Darwin
   then
-    realpath -m "$PWD/work/$1"
-    return
+    if ([[ "$(hostname -f)" =~ (|\.)iserv.eu$ ]] || [[ "$(hostname -f)" =~ \.?(mein-iserv\.de|i\.local)$ ]]) &&
+	[ -f "./work/$1" ]
+    then
+      realpath -m "$PWD/work/$1"
+      return
+    fi
   fi
 
   echo "$2"
