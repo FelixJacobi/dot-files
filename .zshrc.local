@@ -1,7 +1,8 @@
 # We're on macOS with Homebrew
 if [ -x =brew ]
 then
-  for BREWGNU in $(brew --prefix)/opt/*/libexec/gnubin
+  HB_PREFIX="$(brew --prefix)"
+  for BREWGNU in "$HB_PREFIX"/opt/*/libexec/gnubin "$HB_PREFIX/opt/gnu-getopt/bin"
   do
     # Prefer GNU coreutils over macOS dumb BSD variants
     if ! echo "$PATH" | grep -q "$BREWGNU"
