@@ -1,5 +1,5 @@
 # We're on macOS with Homebrew
-if [ -x =brew ]
+if [ "$(which brew 2> /dev/null)" ]
 then
   HB_PREFIX="$(brew --prefix)"
   for BREWGNU in "$HB_PREFIX"/opt/*/libexec/gnubin "$HB_PREFIX/opt/gnu-getopt/bin"
@@ -29,7 +29,7 @@ alias depp=git
 alias ag=true
 unalias ag
 
-if [ -x =brew ]
+if [ "$(which brew 2> /dev/null)"]
 then 
   HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
   if [ -f "$HB_CNF_HANDLER" ]
