@@ -2,7 +2,7 @@
 if which brew &> /dev/null
 then
   HB_PREFIX="$(brew --prefix)"
-  for BREWGNU in "$HB_PREFIX"/opt/*/libexec/gnubin "$HB_PREFIX/opt/gnu-getopt/bin"
+  for BREWGNU in "$HB_PREFIX"/opt/*/libexec/gnubin "$HB_PREFIX/opt/gnu-getopt/bin" /usr/local/sbin /usr/local/bin
   do
     # Prefer GNU coreutils over macOS dumb BSD variants
     if ! echo "$PATH" | grep -q "$BREWGNU"
