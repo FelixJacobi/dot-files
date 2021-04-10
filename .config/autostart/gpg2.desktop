@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=gpg --card-status
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[de_DE]=Query gpg smartcard status
+Name=Query gpg smartcard status
+Comment[de_DE]=
+Comment=

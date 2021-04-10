@@ -1,0 +1,9 @@
+
+[Desktop Entry]
+Type=Application
+Name=Wallch
+Exec=bash -c 'sleep 3 && /usr/bin/wallch --start'
+Terminal=false
+Icon=wallch
+Comment=Start Changing Desktop Background After a Certain Time
+Categories=Utility;Application;
