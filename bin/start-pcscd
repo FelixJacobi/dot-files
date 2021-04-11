@@ -1,4 +1,4 @@
 #!/bin/sh
 
-sudo systemctl start pcscd.socket pcscd.service
 sudo systemctl unmask pcscd.socket pcscd.service
+sudo systemctl start pcscd.socket pcscd.service
