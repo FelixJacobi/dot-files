@@ -1,4 +1,4 @@
 [include]
 	path = ~/.gitconfig_common
 [user]
-	signingkey = 727A52F39644333887EACAFCDC56298737E1DA91
+	signingkey = A65020F6C75A8072A05FE61296C0A5DAAC85F25E
