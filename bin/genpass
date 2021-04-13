@@ -1,0 +1,8 @@
+#!/usr/bin/perl -CSDAL
+
+my $len = shift @ARGV || 8;
+my $sel = shift @ARGV || '\w';
+die "Usage: genpass length chars\n" if $len !~ /^\d+$/ || @ARGV;
+
+@c = grep /[$sel]/, map chr, 0..255;
+print $c[rand @c] for 1..$len;
