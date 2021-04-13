@@ -13,6 +13,6 @@ read -p "NEW: " NEW
 if [ -n "$NEW" ]
 then
   echo "$NEW" > ~/.gnupg/sc-toggle-status/personal
-  find ~/.gnupg/private-keys-v1.d -name "*.$NEW" | while read f; do cp "$f" "${f%.$NEW}.key"; done
+  find ~/.gnupg/private-keys-v1.d -name "C2C10C842FC43BDB6071BEB66E01C85E3087977F.$NEW" | while read f; do cp -a "$f" "${f%.$NEW}.key"; done
   echo "Switching to $NEW"
 fi

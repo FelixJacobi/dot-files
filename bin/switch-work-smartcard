@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+mkdir -p ~/.gnupg/sc-toggle-status
+
+touch ~/.gnupg/sc-toggle-status/work
+SC="$(cat ~/.gnupg/sc-toggle-status/work)"
+
+echo "CURRENT: $SC"
+echo
+read -p "NEW: " NEW
+
+if [ -n "$NEW" ]
+then
+  echo "$NEW" > ~/.gnupg/sc-toggle-status/work
+  find ~/.gnupg/private-keys-v1.d -name "7BD9AC91B531D1E86B8B4E94C3AFCF9F0189C632.$NEW" | while read f; do cp -a "$f" "${f%.$NEW}.key"; done
+  echo "Switching to $NEW"
+fi
