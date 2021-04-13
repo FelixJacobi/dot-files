@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+if [ -z "$1" ]
+then
+ echo "Usage: $0 keyid" >&2
+ exit 1
+fi
+
+echo Test | gpg -e -r "$1" > ~/.gnupg/.unlock_test
