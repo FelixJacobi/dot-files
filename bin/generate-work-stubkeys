@@ -1,0 +1,31 @@
+#!/bin/bash
+set -e
+
+KEYIDs=("7BD9AC91B531D1E86B8B4E94C3AFCF9F0189C632" "5E029D7DD300763917164D0D788C913E5B029E66" "B22C12429D612B4CE0EAEECBB40707BB9F270F06")
+
+read -p "Please remove ALL your Smartcards and YubiKeys now!"
+
+for TYPE in {yubikey,yubikeyusbc,smartcard}-work
+do
+  for KEYID in "${KEYIDs[@]}"
+  do
+    rm -f ~/.gnupg/private-keys-v1.d/"$KEYID.key"
+  done
+
+  read -p "Now insert $TYPE."
+
+  gpg --card-status > /dev/null
+  sleep 5
+
+  read -p "Now remove $TYPE."
+
+  for KEYID in "${KEYIDs[@]}"
+  do
+    mv -v ~/.gnupg/private-keys-v1.d/"$KEYID."{key,"$TYPE"}
+  done
+  gpg-connect-agent killagent /bye > /dev/null || true
+  systemctl -q --user restart gpg-agent.service gpg-agent-ssh.socket gpg-agent-browser.socket gpg-agent-extra.socket gpg-agent.socket || true
+done
+
+rm -f ~/.gnupg/sc-toggle-status/work
+switch-work-smartcard

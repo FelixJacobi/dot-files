@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 mkdir -p ~/.gnupg/sc-toggle-status
@@ -12,7 +12,9 @@ read -p "NEW: " NEW
 
 if [ -n "$NEW" ]
 then
-  echo "$NEW" > ~/.gnupg/sc-toggle-status/work
-  find ~/.gnupg/private-keys-v1.d -name "7BD9AC91B531D1E86B8B4E94C3AFCF9F0189C632.$NEW" | while read f; do cp -a "$f" "${f%.$NEW}.key"; done
+  echo -e "7BD9AC91B531D1E86B8B4E94C3AFCF9F0189C632\n5E029D7DD300763917164D0D788C913E5B029E66\nB22C12429D612B4CE0EAEECBB40707BB9F270F06" | while read f; do cp -a "$HOME/.gnupg/private-keys-v1.d/$f.$NEW" "$HOME/.gnupg/private-keys-v1.d/$f.key"; done
   echo "Switching to $NEW"
+  echo "$NEW" > ~/.gnupg/sc-toggle-status/work
+  gpg-connect-agent killagent /bye > /dev/null
+  systemctl -q --user restart gpg-agent.service gpg-agent-ssh.socket gpg-agent-browser.socket gpg-agent-extra.socket gpg-agent.socket
 fi
