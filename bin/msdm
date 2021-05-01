@@ -1,0 +1,34 @@
+#!/usr/bin/python3
+
+import glob
+import os.path
+import struct
+
+def getWin8OEMKey():
+  msdm = "/sys/firmware/acpi/tables/MSDM*"
+  tables = []
+
+  try:
+    tables = glob.glob(msdm)
+  except Exception as e:
+    print("getWin8OEMKey: failed to glob ACPI tables /sys/firmware/acpi/tables/MSDM*: %s\n" % e)
+
+  for fn in tables:
+    if os.path.isfile(fn):
+      try:
+        bytes = open(fn, "rb").read()
+        # 56 bytes junk, 29 bytes key
+        key = struct.unpack("56x29s", bytes)[0]
+        try:
+          return key.decode("ascii")
+        except Exception as e:
+          print("getWin8OEMKey: failed to decode win8 key from %s: %s\n" % (fn, e))
+      except Exception as e:
+        print("getWin8OEMKey: failed to read MSDM table %s: %s\n" % (fn, e))
+  return None
+
+key = getWin8OEMKey()
+
+if key is not None:
+  print(key)
+
