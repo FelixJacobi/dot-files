@@ -1,0 +1,36 @@
+#!/bin/bash
+
+if [ -f "$HOME/.idev/config" ]
+then
+ . ~/.idev/config
+fi
+
+if [ -n "$1" ]
+then
+ CONFIG="$1"
+fi
+
+if [ -z "$CONFIG" ]
+then
+ CONFIG="$DEFAULT_CONFIG"
+fi
+
+if [ -z "$CONFIG" ]
+then
+  echo "No configuration given. Create ~/.idev/config and set DEFAULT_CONFIG." >&2
+  exit 1
+fi
+
+if ! [ -f "$HOME/.idev/targets/$CONFIG" ]
+then
+  echo "~/.idev/targets/$CONFIG does not exist." >&2
+  exit 1
+fi
+
+. "$HOME/.idev/targets/$CONFIG"
+
+if ! [ ${#TARGETS[@]} = ${#SOURCES[@]} ]
+then
+  echo "SOURCES and TARGETS have unequal length" >&2
+  exit 1
+fi

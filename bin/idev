@@ -1,0 +1,10 @@
+#!/bin/bash
+
+. ~/lib/idev_cfg
+
+sshfs_mount "$CONFIG"
+
+for (( i=0; i < ${#SOURCES[@]}; i++ ));
+do
+  rsync -avxHASX --delete "${SOURCES[$i]}" "${TARGETS[$i]}"
+done
