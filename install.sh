@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 set -e
 
 DEST="$HOME/"
@@ -150,3 +150,13 @@ do
 
   install_file "$(get_drop_in "$f" "$rf")" "$rd"
 done
+
+if [ "$(which php)" ] && ! [ "$(which phive)" ]
+then
+  install-phive
+fi
+
+if [ "$(which phive)" ]
+then
+  (cd ~/bin; phive install)
+fi
