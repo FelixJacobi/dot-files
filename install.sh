@@ -158,5 +158,5 @@ fi
 
 if [ "$(which phive)" ]
 then
-  (cd ~/bin; phive install)
+  (cd ~/bin; phive install) || true
 fi
