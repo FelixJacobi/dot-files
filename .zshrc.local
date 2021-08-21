@@ -53,6 +53,9 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^[[A" history-beginning-search-backward-end
 bindkey "^[[B" history-beginning-search-forward-end
 
+# Enable menu for completions
+setopt MENU_COMPLETE
+
 # Update dotfiles if running interactively and last update was more than 24 hours ago
 if [ -t 0 ] && ([ ! -f ~/.dot_files_update ] || [ ! -z "$(find ~ -maxdepth 1 -name ".dot_files_update" -mmin +1440)" ])
 then
