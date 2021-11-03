@@ -1,0 +1,10 @@
+[include]
+	path = ~/.gitconfig_common
+[user]
+	signingkey = A65020F6C75A8072A05FE61296C0A5DAAC85F25E
+[init]
+	templateDir = /usr/share/iserv/internal-dev/git-templates
+[commit]
+	template = /usr/share/iserv/internal-dev/git/templates/commit-msg
+[core]
+	hooksPath = /usr/share/iserv/internal-dev/git/hooks
