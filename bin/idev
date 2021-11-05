@@ -6,5 +6,5 @@ sshfs_mount "$CONFIG"
 
 for (( i=0; i < ${#SOURCES[@]}; i++ ));
 do
-  rsync -avxHASX --delete "${SOURCES[$i]}" "${TARGETS[$i]}"
+  rsync -avxHASX --exclude .idea --delete "${SOURCES[$i]}" "${TARGETS[$i]}"
 done
