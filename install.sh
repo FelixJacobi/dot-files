@@ -22,7 +22,7 @@ is_oneshot()
 get_drop_in()
 {
   # Private IServ configuration for root
-  if [ "$EUID" = "0" ] && [ -x /usr/sbin/iservchk ] && [ -f "./iserv-private/$1" ] && [[ "$(hostname -f)" =~ \.?(felix\.test-iserv\.de|jacobi-(bs.de|hamburg.net))$ ]]
+  if [ "$EUID" = "0" ] && [ -x /usr/sbin/iservchk ] && [ -f "./iserv-private/$1" ] && [[ "$(hostname -f)" =~ \.?(felix\.test-iserv\.de|jacobi-(bs.de|hamburg.net)|stsbl\.de)$ ]]
   then
     realpath -m "$PWD/iserv-private/$1"
     return
