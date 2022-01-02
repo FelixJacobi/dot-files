@@ -1,0 +1,5 @@
+#!/bin/sh
+
+ssh -O exit "$1"
+ssh -o RemoteForward /run/user/0/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent "$1" 'gpg --card-status'
+ssh -O exit "$1"
