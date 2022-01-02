@@ -5,4 +5,4 @@ git config author.email 'felix.jacobi@iserv.eu'
 git config author.name 'Felix Jacobi'
 git config user.name 'Felix Jacobi'
 git config user.email felix.jacobi@iserv.eu
-git config user.signingkey 727A52F39644333887EACAFCDC56298737E1DA91
+git config user.signingkey A65020F6C75A8072A05FE61296C0A5DAAC85F25E
