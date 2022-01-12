@@ -29,6 +29,8 @@ alias depp=git
 alias ag=true
 unalias ag
 
+alias cgit='ISERV_SRC_DIR="$PWD" igit'
+
 if which brew &> /dev/null
 then 
   HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
