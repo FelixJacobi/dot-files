@@ -1,0 +1,2 @@
+SOURCES=("root@felix.mein-iserv.de:/root/git/iserv/" "root@felix.mein-iserv.de:/usr/share/iserv/web/")
+TARGETS=("$HOME/iserv3-work-copy/root/git/iserv/" "$HOME/iserv3-work-copy/usr/share/iserv/web/")
