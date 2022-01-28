@@ -28,6 +28,9 @@ alias depp=git
 # remove ag alias from grml
 alias ag=true
 unalias ag
+alias dropbearssh='ssh -o UserKnownHostsFile=.ssh/known_hosts.dropbear -l root -4'
+ 
+dropbearunlock() { dropbearssh "$1" cryptroot-unlock }
 
 alias cgit='ISERV_SRC_DIR="$PWD" igit'
 
