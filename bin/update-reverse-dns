@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+if [ -z "$1" ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]
+then
+  echo "Usage: $0 rdns-hostname"
+  echo
+  echo "You must be able to connect as privileged user to rnds-hostname via SSH!"
+  exit 0
+fi
+
+ip -json -6 addr show scope global | jq -r '.[].addr_info[] | select(.family=="inet6").local' | grep -vx "fd00::53" | ssh "$1" apply-reserve-dns "$(hostname)"
