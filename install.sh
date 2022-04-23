@@ -160,10 +160,35 @@ done
 
 if [ "$(which php)" ] && ! [ "$(which phive)" ]
 then
-  install-phive
+  ~/bin/install-phive
 fi
 
 if [ "$(which phive)" ]
 then
   (cd ~/bin; phive install) || true
 fi
+
+if ! [ -L ~/.ssh/config.local ] || ! [ "$(readlink ~/.ssh/config.local)" = "../git/ssh_config/config" ]
+then
+  echo "Installing SSH config..."
+  if [ -e ~/.ssh/config.local ]
+  then
+    echo "Saving backup of old config in ~/.ssh/config.local.bak..."
+    mv ~/.ssh/config.local ~/.ssh/config.local.bak
+    echo "Done."
+  fi
+  ln -sf ../git/ssh_config/config ~/.ssh/config.local
+  echo "Installed."
+fi
+
+if ! [ -d ~/git/ssh_config ]
+then
+  echo "Cloning SSH config..."
+  mkdir -p ~/git
+  git clone git@git.jacobi-bs.de:cfg/ssh_config.git ~/git/ssh_config
+  echo "Done."
+fi
+
+echo "Pulling SSH config..."
+git -C ~/git/ssh_config pull
+echo "Done."
