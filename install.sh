@@ -168,6 +168,14 @@ then
   (cd ~/bin; phive install) || true
 fi
 
+if ! [ -d ~/git/ssh_config ]
+then
+  echo "Cloning SSH config..."
+  mkdir -p ~/git
+  git clone git@git.jacobi-bs.de:cfg/ssh_config.git ~/git/ssh_config
+  echo "Done."
+fi
+
 if ! [ -L ~/.ssh/config.local ] || ! [ "$(readlink ~/.ssh/config.local)" = "../git/ssh_config/config" ]
 then
   echo "Installing SSH config..."
@@ -179,14 +187,6 @@ then
   fi
   ln -sf ../git/ssh_config/config ~/.ssh/config.local
   echo "Installed."
-fi
-
-if ! [ -d ~/git/ssh_config ]
-then
-  echo "Cloning SSH config..."
-  mkdir -p ~/git
-  git clone git@git.jacobi-bs.de:cfg/ssh_config.git ~/git/ssh_config
-  echo "Done."
 fi
 
 echo "Pulling SSH config..."
