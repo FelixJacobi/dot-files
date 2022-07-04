@@ -2,7 +2,7 @@
 
 # git author environment variables
 
-if [ -z "$NO_GIT_AUTHOR" ]
+if [ -z "${NO_GIT_AUTHOR:-}" ]
 then
   domain="$(hostname -d)"
   hostname="$(hostname)"
