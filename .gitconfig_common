@@ -5,7 +5,7 @@
 [alias]
         clear = clean -f -d
         unstage = reset HEAD --
-        undo = checkout --
+        undoch = checkout --
         find = log --pretty=\"format:%Cgreen%H %Cblue%s\" --name-status --grep
         stag = tag -s
         apush = "!f() { for r in $(git remote); do git push --all \"$r\" && git push --tags \"$r\"; done; }; f"
