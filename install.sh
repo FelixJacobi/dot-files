@@ -176,18 +176,9 @@ then
   echo "Done."
 fi
 
-if ! [ -L ~/.ssh/config.local ] || ! [ "$(readlink ~/.ssh/config.local)" = "../git/ssh_config/config" ]
-then
-  echo "Installing SSH config..."
-  if [ -e ~/.ssh/config.local ]
-  then
-    echo "Saving backup of old config in ~/.ssh/config.local.bak..."
-    mv ~/.ssh/config.local ~/.ssh/config.local.bak
-    echo "Done."
-  fi
-  ln -sf ../git/ssh_config/config ~/.ssh/config.local
-  echo "Installed."
-fi
+echo "Installing SSH config..."
+(cd ~/git/ssh_config; make install)
+echo "Installed."
 
 echo "Pulling SSH config..."
 git -C ~/git/ssh_config pull
