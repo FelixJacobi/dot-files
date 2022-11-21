@@ -26,6 +26,11 @@ then
   PATH="$PATH:/opt/jetbrains/bin"
 fi
 
+if ! echo $PATH | grep -qE "$HOME/.local/bin" && [ -d "$HOME/.local/bin" ]
+then
+  PATH="$PATH:$HOME/.local/bin"
+fi
+
 export PATH
 
 # import ~/.dpkg-dev (debuild env vars and so far)

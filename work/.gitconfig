@@ -1,5 +1,6 @@
 [include]
 	path = ~/.gitconfig_common
+	path = /etc/gitconfig.d/iserv-internal-dev
 [user]
 	signingkey = A65020F6C75A8072A05FE61296C0A5DAAC85F25E
 [init]
