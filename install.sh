@@ -176,10 +176,10 @@ then
   echo "Done."
 fi
 
-echo "Installing SSH config..."
-(cd ~/git/ssh_config; make install)
-echo "Installed."
-
 echo "Pulling SSH config..."
 git -C ~/git/ssh_config pull
 echo "Done."
+
+echo "Installing SSH config..."
+(cd ~/git/ssh_config; make install)
+echo "Installed."
