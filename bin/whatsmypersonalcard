@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+
+mkdir -p ~/.gnupg/sc-toggle-status
+
+touch ~/.gnupg/sc-toggle-status/personal
+cat ~/.gnupg/sc-toggle-status/personal

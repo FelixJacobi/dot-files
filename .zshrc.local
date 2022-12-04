@@ -83,3 +83,7 @@ then
   echo "\nRestarting login shell...\n" &&
   exec -l "$SHELL"
 fi
+
+echo "Your personal smartcard is $(whatsmypersonalcard)."
+echo "Your work smartcard is $(whatsmyworkcard)."
+echo
