@@ -5,7 +5,7 @@ KEYIDs=("C2C10C842FC43BDB6071BEB66E01C85E3087977F" "A6333FD17C5D71D4E70DD4180F49
 
 read -p "Please remove ALL your Smartcards and YubiKeys now!"
 
-for TYPE in {yubikey,yubikeyusbc,smartcard}-personal
+for TYPE in ${@:-$(echo {yubikey,yubikeyusbc,smartcard}-personal)}
 do
   for KEYID in "${KEYIDs[@]}"
   do
