@@ -14,4 +14,7 @@ function TabToggle()
 endfunction
 nmap <F9> mz:execute TabToggle()<CR>'z
 
-packadd! youcompleteme
+" For never youcompleteme versions no longer providing autoload files
+if !empty(expand(glob("/usr/share/vim/vimfiles/pack/dist-bundle/opt/youcompleteme")))
+  packadd! youcompleteme
+endif
