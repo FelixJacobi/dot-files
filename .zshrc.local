@@ -23,6 +23,7 @@ alias nano='nano -w -i -c'
 alias vim='vim -p'
 alias V='vim -R -'
 alias man='man --locale=C'
+alias sshp11kit='ssh -R /run/user/0/p11-kit/pkcs11:${P11_KIT_SERVER_ADDRESS#*=}'
 # https://github.com/danielauener/git-auf-deutsch
 alias depp=git
 # remove ag alias from grml
