@@ -1,5 +1,5 @@
 # We're on macOS with Homebrew
-if which brew &> /dev/null
+if command -v brew &> /dev/null
 then
   HB_PREFIX="$(brew --prefix)"
   for BREWGNU in "$HB_PREFIX"/opt/*/libexec/gnubin "$HB_PREFIX/opt/gnu-getopt/bin" /usr/local/sbin /usr/local/bin
@@ -17,6 +17,11 @@ then
   # Fix TTY
   export GPG_TTY=$(tty)
   gpg-connect-agent updatestartuptty /bye >/dev/null
+fi
+
+if [ -d ~/".cargo/bin" ]
+then
+  export PATH="$PATH:"~"/.cargo/bin"
 fi
 
 alias nano='nano -w -i -c'
