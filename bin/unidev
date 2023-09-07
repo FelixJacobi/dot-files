@@ -6,5 +6,5 @@ sshfs_mount "$CONFIG"
 
 for (( i=0; i < ${#SOURCES[@]}; i++ ));
 do
-  rsync -avxHASX --exclude .idea --usermap="$(id -u):0" --groupmap="$(id -g):0" --delete "${TARGETS[$i]}" "${SOURCES[$i]}"
+  rsync -avxHASX --exclude .idea --exclude "app/var/" --usermap="$(id -u):0" --groupmap="$(id -g):0" --delete "${TARGETS[$i]}" "${SOURCES[$i]}"
 done
