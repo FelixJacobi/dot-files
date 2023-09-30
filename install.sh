@@ -21,8 +21,8 @@ is_oneshot()
 # get a specific replacement for the given file
 get_drop_in()
 {
-  # Private IServ configuration for root
-  if [ "$EUID" = "0" ] && [ -x /usr/sbin/iservchk ] && [ -f "./iserv-private/$1" ] && [[ "$(hostname -f)" =~ \.?(felix\.test-iserv\.de|jacobi-(bs\.de|hamburg\.net)|stsbl\.de|felix\.iserv\.dev)$ ]]
+  # Private IServ configuration
+  if [ -x /usr/sbin/iservchk ] && [ -f "./iserv-private/$1" ] && [[ "$(hostname -f)" =~ \.?(felix\.test-iserv\.de|jacobi-(bs\.de|hamburg\.net)|stsbl\.de|felix\.iserv\.dev)$ ]]
   then
     realpath -m "$PWD/iserv-private/$1"
     return
