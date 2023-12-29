@@ -1,0 +1,42 @@
+#!/bin/bash
+set -e
+
+declare -a HOSTS
+
+while true
+do
+  case "${1:-}" in
+    "")
+      echo "Usage: $0 host1 host2 -- COMMAND" >&2
+      exit 1
+    ;;
+    "--")
+      shift
+      break
+    ;;
+    *)
+      HOSTS+=("$1")
+      shift
+    ;;
+  esac
+done
+
+if [ "${#HOSTS[@]}" -lt 1 ]
+then
+  echo "Too less hosts" >&2
+  exit 1
+fi
+
+if [ "${#HOSTS[@]}" -gt 2 ]
+then
+  echo "Too many hosts" >&2
+  exit 1
+fi
+
+if [ "${#@}" -lt 1 ]
+then
+  echo "Missing command" >&2
+  exit 1
+fi
+
+diff -u <(ssh "${HOSTS[0]}" "$@") <(ssh "${HOSTS[1]}" "$@")
