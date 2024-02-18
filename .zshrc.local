@@ -35,6 +35,7 @@ alias depp=git
 alias ag=true
 unalias ag
 alias dropbearssh='ssh -o UserKnownHostsFile=.ssh/known_hosts.dropbear -l root -4'
+alias rescuessh='ssh -o UserKnownHostsFile=/dev/null'
  
 dropbearunlock() { dropbearssh "$1" cryptroot-unlock }
 
