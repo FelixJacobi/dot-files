@@ -35,6 +35,7 @@
 	tagebuch = log
 	zustand = status
 	beschuldige = blame
+	commitwlm = "!git commit -eF \"$(git rev-parse --show-toplevel)\"/.git/COMMIT_EDITMSG"
 [fetch]
         prune = true
 [commit]
