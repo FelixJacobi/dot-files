@@ -4,7 +4,7 @@ set -e
 DEST="$HOME/"
 # config destination for programs that resolves home by UID (SSH -.-")
 # Linux
-if [ "$(which getent)" ]
+if command -v getent &> /dev/null
 then
   DEST_UID="$(zsh -c "echo ~$(getent passwd "$UID" | cut -d: -f1)")"
 # system without getent (macOS)
@@ -158,12 +158,12 @@ do
   install_file "$(get_drop_in "$f" "$rf")" "$rd"
 done
 
-if [ "$(which php)" ] && ! [ "$(which phive)" ]
+if command -v php &> /dev/null && ! command -v phive &> /dev/null
 then
   ~/bin/install-phive
 fi
 
-if [ "$(which phive)" ]
+if command -v phive &> /dev/null
 then
   (cd ~/bin; phive install) || true
 fi
