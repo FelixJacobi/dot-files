@@ -15,8 +15,16 @@ then
   export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 
   # Fix TTY
-  export GPG_TTY=$(tty)
+  export GPG_TTY="$(tty)"
   gpg-connect-agent updatestartuptty /bye >/dev/null
+fi
+
+if command -v okc-ssh-agent &> /dev/null
+then
+  if [ -z "$SSH_AUTH_SOCK" ]
+  then
+    eval "$(okc-ssh-agent -s)" > /dev/null
+  fi
 fi
 
 if [ -d ~/".cargo/bin" ]
@@ -41,7 +49,7 @@ dropbearunlock() { dropbearssh "$1" cryptroot-unlock }
 
 alias cgit='ISERV_SRC_DIR="$PWD" igit'
 
-if which brew &> /dev/null
+if command -v brew &> /dev/null
 then 
   HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
   if [ -f "$HB_CNF_HANDLER" ]
