@@ -2,9 +2,9 @@ if [ -n "$ISERV_SRC_DIR" ]
 then
   # keep
   true
-elif [ -d "/var/local/src/iserv" ]
+elif [ -d "/var/local/iserv/src" ]
 then
-  export ISERV_SRC_DIR=/var/local/src/iserv
+  export ISERV_SRC_DIR=/var/local/iserv/src
 elif [ -d "/root/git" ]
 then
   export ISERV_SRC_DIR=/root/git
