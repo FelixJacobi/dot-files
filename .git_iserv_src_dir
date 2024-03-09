@@ -1,1 +1,11 @@
-export ISERV_SRC_DIR=/root/git
+if [ -n "$ISERV_SRC_DIR" ]
+then
+  # keep
+  true
+elif [ -d "/root/git" ]
+then
+  export ISERV_SRC_DIR=/root/git
+elif [ -d "/var/local/src/iserv" ]
+then
+  export ISERV_SRC_DIR=/var/local/src/iserv
+fi
