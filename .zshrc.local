@@ -49,6 +49,9 @@ dropbearunlock() { dropbearssh "$1" cryptroot-unlock }
 
 alias cgit='ISERV_SRC_DIR="$PWD" igit'
 
+
+alias cdisd='cd "$ISERV_SRC_DIR"'
+
 if command -v brew &> /dev/null
 then 
   HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
@@ -99,6 +102,6 @@ then
   exec -l "$SHELL"
 fi
 
-echo "Your personal smartcard is $(whatsmypersonalcard)."
-echo "Your work smartcard is $(whatsmyworkcard)."
+echo "Your personal smartcard is $(CARD="$(whatsmypersonalcard)"; echo "${CARD:-"(unknown)"}")."
+echo "Your work smartcard is $(CARD="$(whatsmyworkcard)"; echo "${CARD:-"(unknown)"}")."
 echo
