@@ -105,3 +105,8 @@ fi
 echo "Your personal smartcard is $(CARD="$(whatsmypersonalcard)"; echo "${CARD:-"(unknown)"}")."
 echo "Your work smartcard is $(CARD="$(whatsmyworkcard)"; echo "${CARD:-"(unknown)"}")."
 echo
+
+if [ -f ~/.zshrc.local.local ]
+then
+  . ~/.zshrc.local.local
+fi
