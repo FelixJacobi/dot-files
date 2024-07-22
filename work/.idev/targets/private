@@ -1,0 +1,2 @@
+SOURCES=("felix.iserv.dev:/root/git/" "felix.iserv.dev:/usr/share/iserv/")
+TARGETS=("$HOME/iserv3-copy-private/root/git/" "$HOME/iserv3-copy-private/usr/share/iserv/")
