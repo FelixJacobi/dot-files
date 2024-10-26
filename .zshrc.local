@@ -21,10 +21,7 @@ fi
 
 if command -v okc-ssh-agent &> /dev/null
 then
-  if [ -z "$SSH_AUTH_SOCK" ]
-  then
-    eval "$(okc-ssh-agent -s)" > /dev/null
-  fi
+  eval "$(okc-ssh-agent -s)" > /dev/null
 fi
 
 if [ -d ~/".cargo/bin" ]
