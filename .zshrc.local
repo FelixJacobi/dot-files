@@ -19,6 +19,12 @@ then
   gpg-connect-agent updatestartuptty /bye >/dev/null
 fi
 
+# We're on Linux with Homebrew
+if [ -e "/home/linuxbrew/.linuxbrew/bin/brew" ]
+then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+fi
+
 if command -v okc-ssh-agent &> /dev/null
 then
   eval "$(okc-ssh-agent -s)" > /dev/null
