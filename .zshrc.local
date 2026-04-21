@@ -9,7 +9,7 @@ then
     then
       export PATH="$BREWGNU:$PATH"
     fi
-  done
+  done 2> /dev/null
 
   # Replace builtin macOS SSH agent
   export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
@@ -23,6 +23,12 @@ fi
 if [ -e "/home/linuxbrew/.linuxbrew/bin/brew" ]
 then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+fi
+
+# Add gitlab-ci-local
+if command -v gitlab-ci-local &> /dev/null
+then
+  eval "$(gitlab-ci-local --completion)"
 fi
 
 if command -v okc-ssh-agent &> /dev/null
