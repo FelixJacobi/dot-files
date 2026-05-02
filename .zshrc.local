@@ -25,6 +25,14 @@ then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 fi
 
+if command -v brew &> /dev/null
+then
+  if [ -e "$(brew --prefix)/share/zsh/site-functions" ]
+  then
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  fi
+fi
+
 # Add gitlab-ci-local
 if command -v gitlab-ci-local &> /dev/null
 then
