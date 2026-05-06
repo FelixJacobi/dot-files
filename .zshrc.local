@@ -22,7 +22,17 @@ fi
 # We're on Linux with Homebrew
 if [ -e "/home/linuxbrew/.linuxbrew/bin/brew" ]
 then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+  # Move Brew in PATH to the end
+  path=( "${(@)path:#/home/linuxbrew/.linuxbrew/bin}" )
+  path=( "${(@)path:#/home/linuxbrew/.linuxbrew/sbin}" )
+
+  path+=( "/home/linuxbrew/.linuxbrew/bin" "/home/linuxbrew/.linuxbrew/sbin" )
+
+  # 4. Sauber machen
+  typeset -U path
+  export PATH
 fi
 
 if command -v brew &> /dev/null
@@ -46,7 +56,9 @@ fi
 
 if [ -d ~/".cargo/bin" ]
 then
-  export PATH="$PATH:"~"/.cargo/bin"
+  path+=( ~"/.cargo/bin")
+  typeset -U path
+  export PATH
 fi
 
 alias nano='nano -w -i -c'
