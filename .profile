@@ -69,7 +69,4 @@ then
   fi
 fi
 
-if [ -f "$HOME/.cargo/env" ]
-then
-  . "$HOME/.cargo/env"
-fi
+export ISERV_DROPBEAR_CONFIRMATION_PREFERENCE="duo_push"
