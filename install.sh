@@ -133,6 +133,7 @@ for f in $(find -type f -not \( -path './uid/*' -or -path './.git/*' -or \
                -path './LICENSE' -or -path './iserv/*' -or \
                -path './docs/*' -or \
                -path './tests/*' -or \
+               -path './.codex' -or \
                -path './iserv-root/*' -or -path './work/*' \)
 )
 do
