@@ -22,6 +22,13 @@ canonical_origin() {
     printf '%s\n' "$origin"
 }
 
+project_id_for_path() {
+    local path=$1 encoded_path
+    encoded_path=$(jq -nr --arg path "$path" '$path | @uri')
+    glab api --hostname "$host" "projects/$encoded_path" 2>/dev/null |
+        jq -er '.id' 2>/dev/null || true
+}
+
 while (($#)); do
     case $1 in
         --dry-run) apply=false ;;
@@ -76,7 +83,7 @@ done < <(
 failed=false
 group=$namespace
 encoded_group=$(jq -nr --arg group "$group" '$group | @uri')
-while IFS=$'\t' read -r project_namespace ssh_url; do
+while IFS=$'\t' read -r project_id project_namespace ssh_url; do
     [[ $project_namespace == "$group"/* ]] || continue
     relative=${project_namespace#"$group"/}
     target="$workspace/$relative"
@@ -103,8 +110,19 @@ while IFS=$'\t' read -r project_namespace ssh_url; do
             git -C "$target" fetch --prune
         fi
     elif [[ -e $target ]]; then
-        printf 'conflict: %s exists but is not the expected checkout for %s\n' "$target" "$project_namespace" >&2
-        failed=true
+        existing_origin=$(git -C "$target" remote get-url origin 2>/dev/null || true)
+        existing_key=$(canonical_origin "$existing_origin")
+        existing_id=$(project_id_for_path "$existing_key")
+        if [[ -n $existing_id && $existing_id == "$project_id" ]]; then
+            printf 'repair-origin: %s -> %s\n' "$target" "$ssh_url"
+            if "$apply"; then
+                git -C "$target" remote set-url origin "$ssh_url"
+                git -C "$target" fetch --prune
+            fi
+        else
+            printf 'conflict: %s exists but is not the expected checkout for %s\n' "$target" "$project_namespace" >&2
+            failed=true
+        fi
     else
         printf 'clone: %s -> %s\n' "$ssh_url" "$target"
         if "$apply"; then
@@ -115,7 +133,7 @@ while IFS=$'\t' read -r project_namespace ssh_url; do
 done < <(
     glab api --hostname "$host" --paginate \
         "groups/$encoded_group/projects?include_subgroups=true&per_page=100&simple=true" |
-        jq -r '.[] | [.path_with_namespace, .ssh_url_to_repo] | @tsv'
+        jq -r '.[] | [.id, .path_with_namespace, .ssh_url_to_repo] | @tsv'
 )
 
 if "$failed"; then
