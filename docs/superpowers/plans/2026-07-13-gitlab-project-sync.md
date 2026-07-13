@@ -14,6 +14,7 @@
 - Workspace root defaults to `~/git/iserv`.
 - Source GitLab namespace is `iserv` on `git.iserv.eu`.
 - `--host` and `--namespace` override the GitLab hostname and source group.
+- `--quiet` suppresses routine fetch reporting but retains actionable output.
 - Default mode must be non-mutating `--dry-run`.
 - Never delete, reset, clean, overwrite, or automatically reconcile conflicts.
 - Exclude `docs/` from `install.sh` deployment.

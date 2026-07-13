@@ -2,12 +2,13 @@
 set -euo pipefail
 
 apply=false
+quiet=false
 workspace="$HOME/git/iserv"
 host=git.iserv.eu
 namespace=iserv
 
 usage() {
-    printf 'Usage: %s [--dry-run|--apply] [--host HOST] [--namespace GROUP] [--workspace PATH]\n' "$0" >&2
+    printf 'Usage: %s [--dry-run|--apply] [--quiet] [--host HOST] [--namespace GROUP] [--workspace PATH]\n' "$0" >&2
 }
 
 canonical_origin() {
@@ -17,6 +18,7 @@ canonical_origin() {
     origin=${origin#ssh://git@${host}/}
     origin=${origin#https://${host}/}
     origin=${origin#http://${host}/}
+    origin=${origin#git:}
     printf '%s\n' "$origin"
 }
 
@@ -24,6 +26,7 @@ while (($#)); do
     case $1 in
         --dry-run) apply=false ;;
         --apply) apply=true ;;
+        --quiet) quiet=true ;;
         --host)
             shift
             (($#)) || { usage; exit 2; }
@@ -93,7 +96,9 @@ while IFS=$'\t' read -r project_namespace ssh_url; do
             git -C "$target" fetch --prune
         fi
     elif [[ -n $source ]]; then
-        printf 'fetch: %s\n' "$target"
+        if ! "$quiet"; then
+            printf 'fetch: %s\n' "$target"
+        fi
         if "$apply"; then
             git -C "$target" fetch --prune
         fi
