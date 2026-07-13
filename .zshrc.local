@@ -135,6 +135,12 @@ echo "Your personal smartcard is $(CARD="$(whatsmypersonalcard)"; echo "${CARD:-
 echo "Your work smartcard is $(CARD="$(whatsmyworkcard)"; echo "${CARD:-"(unknown)"}")."
 echo
 
+dbssh() {
+  local host="$1"
+  shift
+  ssh -t "$host" duo_push "$@"
+}
+
 if [ -f ~/.zshrc.local.local ]
 then
   . ~/.zshrc.local.local

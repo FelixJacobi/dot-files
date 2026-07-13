@@ -9,3 +9,5 @@
 	template = /usr/share/iserv/internal-dev/git/templates/commit-msg
 [core]
 	hooksPath = /usr/share/iserv/internal-dev/git/hooks
+[url "git@git.iserv.eu:"]
+	insteadOf = https://git.iserv.eu/

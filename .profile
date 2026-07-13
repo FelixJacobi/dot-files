@@ -31,6 +31,11 @@ then
   PATH="$PATH:$HOME/.local/bin"
 fi
 
+if ! echo $PATH | grep -qE "$HOME/.npm/bin" && [ -d "$HOME/.npm/bin" ]
+then
+  PATH="$PATH:$HOME/.npm/bin"
+fi
+
 export PATH
 
 # import ~/.dpkg-dev (debuild env vars and so far)
@@ -70,3 +75,4 @@ then
 fi
 
 export ISERV_DROPBEAR_CONFIRMATION_PREFERENCE="duo_push"
+export LC_ISERV_DROPBEAR_CONFIRMATION_PREFERENCE="duo_push"
