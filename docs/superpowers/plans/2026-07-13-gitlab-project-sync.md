@@ -13,8 +13,10 @@
 - Script path is `~/git/dot-files/bin/sync-gitlab-projects`.
 - Workspace root defaults to `~/git/iserv`.
 - Source GitLab namespace is `iserv` on `git.iserv.eu`.
+- `--host` and `--namespace` override the GitLab hostname and source group.
 - Default mode must be non-mutating `--dry-run`.
 - Never delete, reset, clean, overwrite, or automatically reconcile conflicts.
+- Exclude `docs/` from `install.sh` deployment.
 
 ---
 
@@ -59,6 +61,7 @@ done
 ```
 
 Normalize SSH and HTTPS GitLab origin variants to a single `git.iserv.eu/<path-without-.git>` key before matching.
+Prune every `.gitlab-ci-local` subtree from this inventory because it contains generated clones, not workspace checkouts.
 
 - [ ] **Step 4: Plan and report safe actions**
 

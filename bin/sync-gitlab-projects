@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+apply=false
+workspace="$HOME/git/iserv"
+host=git.iserv.eu
+namespace=iserv
+
+usage() {
+    printf 'Usage: %s [--dry-run|--apply] [--host HOST] [--namespace GROUP] [--workspace PATH]\n' "$0" >&2
+}
+
+canonical_origin() {
+    local origin=$1
+    origin=${origin%.git}
+    origin=${origin#git@${host}:}
+    origin=${origin#ssh://git@${host}/}
+    origin=${origin#https://${host}/}
+    origin=${origin#http://${host}/}
+    printf '%s\n' "$origin"
+}
+
+while (($#)); do
+    case $1 in
+        --dry-run) apply=false ;;
+        --apply) apply=true ;;
+        --host)
+            shift
+            (($#)) || { usage; exit 2; }
+            host=$1
+            ;;
+        --namespace)
+            shift
+            (($#)) || { usage; exit 2; }
+            namespace=${1%/}
+            [[ -n $namespace ]] || { usage; exit 2; }
+            ;;
+        --workspace)
+            shift
+            (($#)) || { usage; exit 2; }
+            workspace=$1
+            ;;
+        *) usage; exit 2 ;;
+    esac
+    shift
+done
+
+for command in glab git jq find; do
+    command -v "$command" >/dev/null || {
+        printf 'Required command not found: %s\n' "$command" >&2
+        exit 127
+    }
+done
+
+declare -A local_by_origin
+while IFS= read -r git_dir; do
+    repo=${git_dir%/.git}
+    origin=$(git -C "$repo" remote get-url origin 2>/dev/null || true)
+    [[ -n $origin ]] || continue
+    key=$(canonical_origin "$origin")
+    if [[ ${local_by_origin[$key]+set} ]]; then
+        printf 'conflict: duplicate checkout for %s: %s and %s\n' \
+            "$key" "${local_by_origin[$key]}" "$repo" >&2
+        continue
+    fi
+    local_by_origin[$key]=$repo
+done < <(
+    find "$workspace" \
+        -path '*/.gitlab-ci-local/*' -prune -o \
+        -type d -name .git -prune -print
+)
+
+failed=false
+group=$namespace
+encoded_group=$(jq -nr --arg group "$group" '$group | @uri')
+while IFS=$'\t' read -r project_namespace ssh_url; do
+    [[ $project_namespace == "$group"/* ]] || continue
+    relative=${project_namespace#"$group"/}
+    target="$workspace/$relative"
+    key=$(canonical_origin "$ssh_url")
+    source=${local_by_origin[$key]-}
+
+    if [[ -n $source && $source != "$target" ]]; then
+        if [[ -e $target ]]; then
+            printf 'conflict: %s is already occupied; leaving %s in place\n' "$target" "$source" >&2
+            failed=true
+            continue
+        fi
+        printf 'move: %s -> %s\n' "$source" "$target"
+        if "$apply"; then
+            mkdir -p "$(dirname "$target")"
+            mv -- "$source" "$target"
+            git -C "$target" fetch --prune
+        fi
+    elif [[ -n $source ]]; then
+        printf 'fetch: %s\n' "$target"
+        if "$apply"; then
+            git -C "$target" fetch --prune
+        fi
+    elif [[ -e $target ]]; then
+        printf 'conflict: %s exists but is not the expected checkout for %s\n' "$target" "$project_namespace" >&2
+        failed=true
+    else
+        printf 'clone: %s -> %s\n' "$ssh_url" "$target"
+        if "$apply"; then
+            mkdir -p "$(dirname "$target")"
+            git clone "$ssh_url" "$target"
+        fi
+    fi
+done < <(
+    glab api --hostname "$host" --paginate \
+        "groups/$encoded_group/projects?include_subgroups=true&per_page=100&simple=true" |
+        jq -r '.[] | [.path_with_namespace, .ssh_url_to_repo] | @tsv'
+)
+
+if "$failed"; then
+    exit 1
+fi
