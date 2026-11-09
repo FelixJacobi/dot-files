@@ -1,0 +1,30 @@
+# Put existing private bins first, preserving inherited entries and system tools.
+# Use shell builtins so this also works when the inherited PATH is incomplete.
+_dotfiles_path=
+_dotfiles_remaining=$PATH
+for _dotfiles_dir in "$HOME/bin" "$HOME/.local/bin" "$HOME/.npm/bin"
+do
+  if [ -d "$_dotfiles_dir" ]; then
+    _dotfiles_path=${_dotfiles_path:+$_dotfiles_path:}$_dotfiles_dir
+  fi
+done
+
+# Include standard tool locations even if the login environment omitted them.
+_dotfiles_remaining=$_dotfiles_remaining:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+if [ -d /opt/jetbrains/bin ]; then
+  _dotfiles_remaining=$_dotfiles_remaining:/opt/jetbrains/bin
+fi
+while [ -n "$_dotfiles_remaining" ]
+do
+  _dotfiles_dir=${_dotfiles_remaining%%:*}
+  case $_dotfiles_remaining in
+    *:*) _dotfiles_remaining=${_dotfiles_remaining#*:} ;;
+    *) _dotfiles_remaining= ;;
+  esac
+  case :$_dotfiles_path: in
+    *:"$_dotfiles_dir":*) ;;
+    *) _dotfiles_path=${_dotfiles_path:+$_dotfiles_path:}$_dotfiles_dir ;;
+  esac
+done
+export PATH=$_dotfiles_path
+unset _dotfiles_path _dotfiles_remaining _dotfiles_dir

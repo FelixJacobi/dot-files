@@ -108,6 +108,9 @@ bindkey "^[[B" history-beginning-search-forward-end
 # Enable menu for completions
 setopt MENU_COMPLETE
 
+# Restore private-bin precedence after tool environment setup, before login hooks.
+. "$HOME/.shell_path"
+
 # Update dotfiles if running interactively and last update was more than 24 hours ago
 if [ -t 0 ] && ([ ! -f ~/.dot_files_update ] || [ ! -z "$(find ~ -maxdepth 1 -name ".dot_files_update" -mmin +1440)" ])
 then

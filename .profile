@@ -16,27 +16,7 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-if ! echo $PATH | grep -qE "$HOME/bin" && [ -d "$HOME/bin" ]
-then
-  PATH="$PATH:$HOME/bin"
-fi
-
-if ! echo $PATH | grep -qE "/opt/jetbrains/bin" && [ -d "/opt/jetbrains/bin" ]
-then
-  PATH="$PATH:/opt/jetbrains/bin"
-fi
-
-if ! echo $PATH | grep -qE "$HOME/.local/bin" && [ -d "$HOME/.local/bin" ]
-then
-  PATH="$PATH:$HOME/.local/bin"
-fi
-
-if ! echo $PATH | grep -qE "$HOME/.npm/bin" && [ -d "$HOME/.npm/bin" ]
-then
-  PATH="$PATH:$HOME/.npm/bin"
-fi
-
-export PATH
+. "$HOME/.shell_path"
 
 # import ~/.dpkg-dev (debuild env vars and so far)
 if [ -f "$HOME/.dpkg_dev" ]
